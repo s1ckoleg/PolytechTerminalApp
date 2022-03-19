@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArgumentsParser {
+public class Main {
 
     @Option(name = "-l", aliases = "long", usage = "Long format output.", forbids = "-h")
     public boolean longOutput;
@@ -24,7 +24,7 @@ public class ArgumentsParser {
     public List<String> arguments = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-        ArgumentsParser instance = new ArgumentsParser();
+        Main instance = new Main();
         instance.parse(args);
     }
 

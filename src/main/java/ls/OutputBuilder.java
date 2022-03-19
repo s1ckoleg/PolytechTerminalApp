@@ -29,11 +29,9 @@ public class OutputBuilder {
 
     public void buildOutput() throws IOException {
         if (longOutput) {
-            // long output class + reverse + file
-            System.out.println("hi");
+            new LongOutput(reverseOutput, fileOutput, inputFile, outputFile).output();
         } else if (humanOutput) {
-            // human output class + reverse + file
-            System.out.println("hi");
+            new HumanOutput(reverseOutput, fileOutput, inputFile, outputFile).output();
         } else {
             new SimpleOutput(reverseOutput, fileOutput, inputFile, outputFile).output();
         }
