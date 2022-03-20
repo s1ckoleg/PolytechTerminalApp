@@ -1,14 +1,9 @@
 package ls;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class SimpleOutput {
     boolean reverseOutput, fileOutput;
@@ -29,18 +24,8 @@ public class SimpleOutput {
         }
     }
 
-    private File[] setUpDirectory() {
-        File directory = new File(inputFile);
-        File[] filesArray = directory.listFiles();
-        if (filesArray == null) {
-            throw new IllegalArgumentException("");
-        }
-
-        return filesArray;
-    }
-
     private void consoleOutput() {
-        File[] filesArray = setUpDirectory();
+        File[] filesArray = new SetUpDirectory(inputFile).getFilesArray();
 
         if (reverseOutput) {
             for (int i = filesArray.length - 1; i >= 0; i--) {
@@ -54,7 +39,7 @@ public class SimpleOutput {
     }
 
     private void textFileOutput() throws IOException {
-        File[] filesArray = setUpDirectory();
+        File[] filesArray = new SetUpDirectory(inputFile).getFilesArray();
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 

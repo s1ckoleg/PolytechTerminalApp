@@ -49,18 +49,8 @@ public class HumanOutput {
         return FileUtils.byteCountToDisplaySize(byteLength);
     }
 
-    private File[] setUpDirectory() {
-        File directory = new File(inputFile);
-        File[] filesArray = directory.listFiles();
-        if (filesArray == null) {
-            throw new IllegalArgumentException("");
-        }
-
-        return filesArray;
-    }
-
     private void consoleOutput() {
-        File[] filesArray = setUpDirectory();
+        File[] filesArray = new SetUpDirectory(inputFile).getFilesArray();
 
         if (reverseOutput) {
             for (int i = filesArray.length - 1; i >= 0; i--) {
@@ -76,7 +66,7 @@ public class HumanOutput {
     }
 
     private void textFileOutput() throws IOException {
-        File[] filesArray = setUpDirectory();
+        File[] filesArray = new SetUpDirectory(inputFile).getFilesArray();
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
