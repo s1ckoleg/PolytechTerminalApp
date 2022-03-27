@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PolytechTerminalApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PolytechTerminalApp_jar</output-path>
+    <root id="archive" name="PolytechTerminalApp.jar">
+      <element id="module-output" name="PolytechTerminalApp" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/commons-io-2.11.0/commons-io-2.11.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/args4j-2.33.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/args4j/args4j/2.33/args4j-2.33.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/23.0.0/annotations-23.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.8.1/commons-lang3-3.8.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
