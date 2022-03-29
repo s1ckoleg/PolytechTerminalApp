@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
+
 import org.apache.commons.io.FileUtils;
 
 public class HumanOutput {
@@ -83,5 +85,19 @@ public class HumanOutput {
         }
 
         writer.close();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HumanOutput that = (HumanOutput) o;
+        return reverseOutput == that.reverseOutput && fileOutput == that.fileOutput && inputFile.equals(that.inputFile)
+                && Objects.equals(outputFile, that.outputFile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reverseOutput, fileOutput, inputFile, outputFile);
     }
 }

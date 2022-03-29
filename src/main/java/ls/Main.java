@@ -5,6 +5,7 @@ import org.kohsuke.args4j.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Main {
 
@@ -39,5 +40,19 @@ public class Main {
             throw new IllegalArgumentException("");
         }
         new OutputBuilder(longOutput, humanOutput, reverseOutput, fileOutput, arguments).buildOutput();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Main main = (Main) o;
+        return longOutput == main.longOutput && humanOutput == main.humanOutput && reverseOutput == main.reverseOutput
+                && fileOutput == main.fileOutput && arguments.equals(main.arguments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(longOutput, humanOutput, reverseOutput, fileOutput, arguments);
     }
 }

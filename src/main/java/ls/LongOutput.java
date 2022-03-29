@@ -11,6 +11,7 @@ import java.nio.file.attribute.PosixFileAttributeView;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
+import java.util.Objects;
 import java.util.Set;
 import java.nio.file.attribute.BasicFileAttributes;
 
@@ -89,5 +90,19 @@ public class LongOutput {
         }
 
         writer.close();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LongOutput that = (LongOutput) o;
+        return reverseOutput == that.reverseOutput && fileOutput == that.fileOutput && inputFile.equals(that.inputFile)
+                && Objects.equals(outputFile, that.outputFile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reverseOutput, fileOutput, inputFile, outputFile);
     }
 }

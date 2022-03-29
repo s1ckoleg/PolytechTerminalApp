@@ -100,7 +100,7 @@ public class LSTests {
 
     @Test
     public void longOneFileTest() throws IOException {
-        String argument = "-l /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir/sample2.txt";
+        String argument = "-l /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir/sample3.txt";
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));

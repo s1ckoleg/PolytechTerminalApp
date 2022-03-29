@@ -1,6 +1,7 @@
 package ls;
 
 import java.io.File;
+import java.util.Objects;
 
 public class SetUpDirectory {
     String inputFile;
@@ -26,5 +27,18 @@ public class SetUpDirectory {
         }
 
         return filesArray;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SetUpDirectory that = (SetUpDirectory) o;
+        return inputFile.equals(that.inputFile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inputFile);
     }
 }
