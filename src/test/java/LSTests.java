@@ -13,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LSTests {
 
+    private static final String PATH_TO_TESTDIR = "/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir";
+
     public String getOutput(String argument) throws IOException {
         final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
@@ -30,15 +32,12 @@ public class LSTests {
         InputStream inputStream1 = new FileInputStream(path1.toFile());
         InputStream inputStream2 = new FileInputStream(path2.toFile());
 
-        Files.writeString(path1, "testing line 1" + System.lineSeparator() + "line 2");
-        Files.writeString(path2, "testing line 1" + System.lineSeparator() + "line 2");
-
         return IOUtils.contentEquals(inputStream1, inputStream2);
     }
 
     @Test
     public void simpleTest() throws IOException {
-        String argument = "/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir";
+        String argument = PATH_TO_TESTDIR;
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -46,7 +45,7 @@ public class LSTests {
 
     @Test
     public void simpleReversedTest() throws IOException {
-        String argument = "-r /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir";
+        String argument = "-r " + PATH_TO_TESTDIR;
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -54,7 +53,7 @@ public class LSTests {
 
     @Test
     public void simpleOneFileTest() throws IOException {
-        String argument = "-r /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir/sample2.txt";
+        String argument = "-r " + PATH_TO_TESTDIR + "/sample2.txt";
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -67,10 +66,10 @@ public class LSTests {
         Path path2 = paths[1];
         Main.main(
                 ("-o " + path1.toString() +
-                        " /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir").split(" "));
+                        " " + PATH_TO_TESTDIR).split(" "));
         Main.main(
                 ("-o " + path2.toString() +
-                        " /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir").split(" "));
+                        " " + PATH_TO_TESTDIR).split(" "));
         Assertions.assertTrue(compareContent(path1, path2));
     }
 
@@ -84,7 +83,7 @@ public class LSTests {
 
     @Test
     public void longTest() throws IOException {
-        String argument = "-l /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir";
+        String argument = "-l " + PATH_TO_TESTDIR;
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -92,7 +91,7 @@ public class LSTests {
 
     @Test
     public void longReversedTest() throws IOException {
-        String argument = "-l -r /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir";
+        String argument = "-l -r " + PATH_TO_TESTDIR;
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -100,7 +99,7 @@ public class LSTests {
 
     @Test
     public void longOneFileTest() throws IOException {
-        String argument = "-l /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir/sample3.txt";
+        String argument = "-l " + PATH_TO_TESTDIR + "/sample3.txt";
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -113,16 +112,16 @@ public class LSTests {
         Path path2 = paths[1];
         Main.main(
                 ("-l -o " + path1.toString() +
-                        " /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir").split(" "));
+                        " " + PATH_TO_TESTDIR).split(" "));
         Main.main(
                 ("-l -o " + path2.toString() +
-                        " /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir").split(" "));
+                        " " + PATH_TO_TESTDIR).split(" "));
         Assertions.assertTrue(compareContent(path1, path2));
     }
 
     @Test
     public void humanTest() throws IOException {
-        String argument = "-h /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir";
+        String argument = "-h " + PATH_TO_TESTDIR;
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -130,7 +129,7 @@ public class LSTests {
 
     @Test
     public void humanReversedTest() throws IOException {
-        String argument = "-h -r /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir";
+        String argument = "-h -r " + PATH_TO_TESTDIR;
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -138,7 +137,7 @@ public class LSTests {
 
     @Test
     public void humanOneFileTest() throws IOException {
-        String argument = "-h /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir/sample2.txt";
+        String argument = "-h " + PATH_TO_TESTDIR + "/sample2.txt";
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -151,17 +150,17 @@ public class LSTests {
         Path path2 = paths[1];
         Main.main(
                 ("-h -o " + path1.toString() +
-                        " /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir").split(" "));
+                        " " + PATH_TO_TESTDIR).split(" "));
         Main.main(
                 ("-h -o " + path2.toString() +
-                        " /Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir").split(" "));
+                        " " + PATH_TO_TESTDIR).split(" "));
         Assertions.assertTrue(compareContent(path1, path2));
     }
 
     @Test
     public void errors() {
-        assertThrows(IllegalArgumentException.class, () -> Main.main("-l -h filepath".split(" ")));
-        assertThrows(IllegalArgumentException.class, () -> Main.main("-l -o filepath".split(" ")));
-        assertThrows(NoSuchFileException.class, () -> Main.main("-l non_existing_directory".split(" ")));
+        assertThrows(IllegalArgumentException.class, () -> Main.main(("-l -h " + PATH_TO_TESTDIR).split(" ")));
+        assertThrows(IllegalArgumentException.class, () -> Main.main(("-l -o " + PATH_TO_TESTDIR).split(" ")));
+        assertThrows(NoSuchFileException.class, () -> Main.main("-l not/existing/directory".split(" ")));
     }
 }
