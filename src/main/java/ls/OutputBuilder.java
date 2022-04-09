@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class OutputBuilder {
-    boolean longOutput, humanOutput, reverseOutput, fileOutput;
+    boolean longOutput, humanOutput, reverseOutput, fileOutput; // видимость
     String inputFile, outputFile;
 
     public OutputBuilder(boolean longOutput, boolean humanOutput, boolean reverseOutput, boolean fileOutput, List<String> arguments) {
@@ -27,7 +27,7 @@ public class OutputBuilder {
         }
     }
 
-    public void buildOutput() throws IOException {
+    public void buildOutput() throws IOException { // структура
         if (longOutput) {
             new LongOutput(reverseOutput, fileOutput, inputFile, outputFile).output();
         } else if (humanOutput) {

@@ -19,13 +19,13 @@ public class Main {
     private boolean reverseOutput;
 
     @Option(name = "-o", aliases = "output", usage = "File name to write output.")
-    private boolean fileOutput;
+    private boolean fileOutput; // забрать файл
 
     @Argument
     public List<String> arguments = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-        Main instance = new Main();
+        Main instance = new Main(); // сделать класс парсер
         instance.parse(args);
     }
 
@@ -34,7 +34,7 @@ public class Main {
         try {
             parser.parseArgument(args);
             if ((fileOutput && arguments.size() != 2)) {
-                throw new IllegalArgumentException("");
+                throw new IllegalArgumentException(""); // кастомный ошибки
             }
         } catch (CmdLineException e) {
             throw new IllegalArgumentException("");

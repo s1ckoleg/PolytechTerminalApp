@@ -67,7 +67,7 @@ public class HumanOutput {
         }
     }
 
-    private void textFileOutput() throws IOException {
+    private void textFileOutput() throws IOException { // try with resources
         File[] filesArray = new SetUpDirectory(inputFile).getFilesArray();
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));

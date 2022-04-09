@@ -1,5 +1,7 @@
 package ls;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -35,11 +37,8 @@ public class LongOutput {
     }
 
     private String getPermissionsBitmask(File file) throws IOException {
-        Path pathRaw = Paths.get(file.toString());
-//        Path path = Files.isSymbolicLink(pathRaw) ? Paths.get(inputFile + Files.readSymbolicLink(pathRaw).toString())
-//                : Paths.get(file.toString());
-
-        PosixFileAttributeView posixView = Files.getFileAttributeView(pathRaw, PosixFileAttributeView.class);
+        Path path = Paths.get(file.toString());
+        PosixFileAttributeView posixView = Files.getFileAttributeView(path, PosixFileAttributeView.class);
         PosixFileAttributes attribs = posixView.readAttributes(); // get file attributes
         Set<PosixFilePermission> permissions = attribs.permissions(); // get permissions from attributes (list like)
         return PosixFilePermissions.toString(permissions);
@@ -47,8 +46,7 @@ public class LongOutput {
 
     private String getLastModifiedTime(File file) throws IOException {
         Path path = Paths.get(file.toString());
-        BasicFileAttributes attr =
-                Files.readAttributes(path, BasicFileAttributes.class);
+        BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
         return attr.lastModifiedTime().toString();
     }
 
@@ -61,15 +59,19 @@ public class LongOutput {
 
         if (reverseOutput) {
             for (int i = filesArray.length - 1; i >= 0; i--) {
-                System.out.println(getPermissionsBitmask(filesArray[i]) + " " + getLastModifiedTime(filesArray[i]) + " "
-                        + getFileSizeBytes(filesArray[i]) + " " + filesArray[i].getName());
+                System.out.println(getX(filesArray[i]));
             }
         } else {
             for (int i = 0; i <= filesArray.length - 1; i++) {
-                System.out.println(getPermissionsBitmask(filesArray[i]) + " " + getLastModifiedTime(filesArray[i]) + " "
-                        + getFileSizeBytes(filesArray[i]) + " " + filesArray[i].getName());
+                System.out.println(getX(filesArray[i]));
             }
         }
+    }
+
+    @NotNull
+    private String getX(File filesArray) throws IOException {
+        return getPermissionsBitmask(filesArray) + " " + getLastModifiedTime(filesArray) + " "
+                + getFileSizeBytes(filesArray) + " " + filesArray.getName();
     }
 
     private void textFileOutput() throws IOException {
