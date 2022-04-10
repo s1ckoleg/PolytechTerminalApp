@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static ls.Errors.FILE_WRITING_ERROR;
+
 public class OutputBuilder {
     private final boolean fileOutput;
     private final String outputFile;
@@ -46,13 +48,15 @@ public class OutputBuilder {
     }
 
     public void textFileOutput() throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
-        for (Map.Entry<String, List<String>> entry : results.entrySet()) {
-            writer.write(buildString(entry).append(System.lineSeparator()).toString());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+
+            for (Map.Entry<String, List<String>> entry : results.entrySet()) {
+                writer.write(buildString(entry).append(System.lineSeparator()).toString());
+            }
+        } catch (IOException e) {
+            throw new IOException(FILE_WRITING_ERROR.getMessage());
         }
-
-        writer.close();
     }
 
 

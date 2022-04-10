@@ -15,13 +15,13 @@ import java.util.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
 public class LongOutput {
-    String inputFile;
+    public final String inputFile;
 
     public LongOutput(String inputFile) {
         this.inputFile = inputFile;
     }
 
-    String getPermissionsBitmask(File file) throws IOException {
+    public String getPermissionsBitmask(File file) throws IOException {
         Path path = Paths.get(file.toString());
         PosixFileAttributeView posixView = Files.getFileAttributeView(path, PosixFileAttributeView.class);
         PosixFileAttributes attribs = posixView.readAttributes(); // get file attributes
@@ -29,13 +29,13 @@ public class LongOutput {
         return PosixFilePermissions.toString(permissions);
     }
 
-    String getLastModifiedTime(File file) throws IOException {
+    public String getLastModifiedTime(File file) throws IOException {
         Path path = Paths.get(file.toString());
         BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
         return attr.lastModifiedTime().toString();
     }
 
-    String getFileSizeBytes(File file) {
+    public String getFileSizeBytes(File file) {
         return Long.toString(file.length());
     }
 
