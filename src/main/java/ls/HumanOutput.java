@@ -1,33 +1,18 @@
 package ls;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Objects;
-
 import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.util.Objects;
+
 public class HumanOutput {
-    boolean reverseOutput, fileOutput;
-    String inputFile, outputFile;
+    private final String inputFile;
 
-    public HumanOutput(boolean reverseOutput, boolean fileOutput, String inputFile, String outputFile) {
-        this.reverseOutput = reverseOutput;
-        this.fileOutput = fileOutput;
+    public HumanOutput(String inputFile) {
         this.inputFile = inputFile;
-        this.outputFile = outputFile;
     }
 
-    public void output() throws IOException {
-        if (fileOutput) {
-            textFileOutput();
-        } else {
-            consoleOutput();
-        }
-    }
-
-    public String getPermissions(File file) {
+    public String getPermissionsRWX(File file) {
         StringBuilder permissions = new StringBuilder();
         if (file.canRead()) {
             permissions.append("r");
@@ -51,53 +36,16 @@ public class HumanOutput {
         return FileUtils.byteCountToDisplaySize(byteLength);
     }
 
-    private void consoleOutput() {
-        File[] filesArray = new SetUpDirectory(inputFile).getFilesArray();
-
-        if (reverseOutput) {
-            for (int i = filesArray.length - 1; i >= 0; i--) {
-                System.out.println(getPermissions(filesArray[i]) + " " + getHumanReadableSize(filesArray[i]) + " "
-                        + filesArray[i].getName());
-            }
-        } else {
-            for (int i = 0; i <= filesArray.length - 1; i++) {
-                System.out.println(getPermissions(filesArray[i]) + " " + getHumanReadableSize(filesArray[i]) + " "
-                        + filesArray[i].getName());
-            }
-        }
-    }
-
-    private void textFileOutput() throws IOException { // try with resources
-        File[] filesArray = new SetUpDirectory(inputFile).getFilesArray();
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-
-        if (reverseOutput) {
-            for (int i = filesArray.length - 1; i >= 0; i--) {
-                writer.write(getPermissions(filesArray[i]) + " " + getHumanReadableSize(filesArray[i]) + " "
-                        + filesArray[i].getName() + "\n");
-            }
-        } else {
-            for (int i = 0; i <= filesArray.length - 1; i++) {
-                writer.write(getPermissions(filesArray[i]) + " " + getHumanReadableSize(filesArray[i]) + " "
-                        + filesArray[i].getName() + "\n");
-            }
-        }
-
-        writer.close();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HumanOutput that = (HumanOutput) o;
-        return reverseOutput == that.reverseOutput && fileOutput == that.fileOutput && inputFile.equals(that.inputFile)
-                && Objects.equals(outputFile, that.outputFile);
+        return Objects.equals(inputFile, that.inputFile);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(reverseOutput, fileOutput, inputFile, outputFile);
+        return Objects.hash(inputFile);
     }
 }

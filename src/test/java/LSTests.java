@@ -13,7 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LSTests {
 
-    private static final String PATH_TO_TESTDIR = "/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/TestDir";
+    private static final String PATH_TO_TESTDIR =
+            "/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/src/test/java/resources/TestDir";
 
     public String getOutput(String argument) throws IOException {
         final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -53,7 +54,7 @@ public class LSTests {
 
     @Test
     public void simpleOneFileTest() throws IOException {
-        String argument = "-r " + PATH_TO_TESTDIR + "/sample2.txt";
+        String argument = "-r " + PATH_TO_TESTDIR + "/textfile2.txt";
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -99,7 +100,7 @@ public class LSTests {
 
     @Test
     public void longOneFileTest() throws IOException {
-        String argument = "-l " + PATH_TO_TESTDIR + "/sample3.txt";
+        String argument = "-l " + PATH_TO_TESTDIR + "/textfile3.txt";
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -137,7 +138,7 @@ public class LSTests {
 
     @Test
     public void humanOneFileTest() throws IOException {
-        String argument = "-h " + PATH_TO_TESTDIR + "/sample2.txt";
+        String argument = "-h " + PATH_TO_TESTDIR + "/textfile2.txt";
         String stringToCompare = getOutput(argument);
         assertEquals(stringToCompare,
                 getOutput(argument));
