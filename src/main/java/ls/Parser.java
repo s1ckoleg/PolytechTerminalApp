@@ -31,8 +31,8 @@ public class Parser {
     @Argument
     public List<String> arguments = new ArrayList<>();
 
-    private String inputFile;
-    private String outputFile;
+    private File inputFile;
+    private File outputFile;
 
 
     public void parse(String[] args) throws IOException {
@@ -51,12 +51,12 @@ public class Parser {
     private void setFilesFromArguments() {
         if (arguments.isEmpty()) {
             File file = new File("");
-            inputFile = file.getAbsolutePath();
+            inputFile = new File(file.getAbsolutePath());
         } else if (fileOutput) {
-            inputFile = arguments.get(1);
-            outputFile = arguments.get(0);
+            inputFile = new File(arguments.get(1));
+            outputFile = new File(arguments.get(0));
         } else {
-            inputFile = arguments.get(0);
+            inputFile = new File(arguments.get(0));
             outputFile = null;
         }
     }

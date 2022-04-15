@@ -1,7 +1,5 @@
 package ls;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +8,9 @@ import java.util.List;
 
 public class BuildMap {
     private final boolean reverseOutput, longOutput, humanOutput;
-    private final String inputFile;
+    private final File inputFile;
 
-    public BuildMap(boolean reverseOutput, boolean longOutput, boolean humanOutput, String inputFile) {
+    public BuildMap(boolean reverseOutput, boolean longOutput, boolean humanOutput, File inputFile) {
         this.reverseOutput = reverseOutput;
         this.longOutput = longOutput;
         this.humanOutput = humanOutput;
@@ -38,39 +36,13 @@ public class BuildMap {
 
     private List<String> getParametres(File file) throws IOException {
         if (longOutput) {
-            return getLongParametres(file);
+            return new LongOutput().getLongParametres(file);
         } else if (humanOutput) {
-            return getHumanParametres(file);
+            return new HumanOutput().getHumanParametres(file);
         } else {
-            return getSimpleParametres(file);
+            List<String> parametres = new ArrayList<>();
+            parametres.add(file.getName());
+            return parametres;
         }
-    }
-
-    @NotNull
-    private List<String> getLongParametres(File file) throws IOException {
-        LongOutput instance = new LongOutput(inputFile);
-        List<String> parametres = new ArrayList<>();
-        parametres.add(instance.getPermissionsBitmask(file));
-        parametres.add(instance.getLastModifiedTime(file));
-        parametres.add(instance.getFileSizeBytes(file));
-        parametres.add(file.getName());
-        return parametres;
-    }
-
-    @NotNull
-    private List<String> getHumanParametres(File file) {
-        HumanOutput instance = new HumanOutput(inputFile);
-        List<String> parametres = new ArrayList<>();
-        parametres.add(instance.getPermissionsRWX(file));
-        parametres.add(instance.getHumanReadableSize(file));
-        parametres.add(file.getName());
-        return parametres;
-    }
-
-    @NotNull
-    private List<String> getSimpleParametres(File file){
-        List<String> parametres = new ArrayList<>();
-        parametres.add(file.getName());
-        return parametres;
     }
 }

@@ -1,6 +1,7 @@
 package ls;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,10 +12,10 @@ import static ls.Errors.FILE_WRITING_ERROR;
 
 public class OutputBuilder {
     private final boolean fileOutput;
-    private final String outputFile;
+    private final File outputFile;
     private final HashMap<String, List<String>> results;
 
-    public OutputBuilder(boolean fileOutput, String outputFile, HashMap<String, List<String>> results) {
+    public OutputBuilder(boolean fileOutput, File outputFile, HashMap<String, List<String>> results) {
         this.fileOutput = fileOutput;
         this.outputFile = outputFile;
         this.results = results;
@@ -42,7 +43,6 @@ public class OutputBuilder {
     public void consoleOutput() {
 
         for (Map.Entry<String, List<String>> entry : results.entrySet()) {
-
             System.out.println(buildString(entry));
         }
     }
@@ -54,6 +54,7 @@ public class OutputBuilder {
             for (Map.Entry<String, List<String>> entry : results.entrySet()) {
                 writer.write(buildString(entry).append(System.lineSeparator()).toString());
             }
+
         } catch (IOException e) {
             throw new IOException(FILE_WRITING_ERROR.getMessage());
         }

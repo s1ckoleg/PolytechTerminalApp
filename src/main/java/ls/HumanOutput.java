@@ -1,18 +1,16 @@
 package ls;
 
 import org.apache.commons.io.FileUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HumanOutput {
-    private final String inputFile;
 
-    public HumanOutput(String inputFile) {
-        this.inputFile = inputFile;
-    }
-
-    public String getPermissionsRWX(File file) {
+    private String getPermissionsRWX(File file) {
         StringBuilder permissions = new StringBuilder();
         if (file.canRead()) {
             permissions.append("r");
@@ -31,21 +29,17 @@ public class HumanOutput {
         }
      }
 
-    public String getHumanReadableSize(File file) {
+    private String getHumanReadableSize(File file) {
         long byteLength = file.length();
         return FileUtils.byteCountToDisplaySize(byteLength);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        HumanOutput that = (HumanOutput) o;
-        return Objects.equals(inputFile, that.inputFile);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(inputFile);
+    @NotNull
+    public List<String> getHumanParametres(File file) throws IOException {
+        List<String> parametres = new ArrayList<>();
+        parametres.add(new Permissions().getPermissionsRWX(file));
+        parametres.add(getHumanReadableSize(file));
+        parametres.add(file.getName());
+        return parametres;
     }
 }

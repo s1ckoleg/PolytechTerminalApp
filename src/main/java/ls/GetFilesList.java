@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.Objects;
 
 public class GetFilesList {
-    String inputFile;
+    private final File inputFile;
 
-    public GetFilesList(String inputFile) {
+    public GetFilesList(File inputFile) {
         if (inputFile != null) {
             this.inputFile = inputFile;
         } else {
@@ -15,13 +15,12 @@ public class GetFilesList {
     }
 
     public File[] getFilesList() {
-        File file = new File(inputFile);
 
-        if (!file.isDirectory()) {
-            return new File[] {file};
+        if (!inputFile.isDirectory()) {
+            return new File[] {inputFile};
         }
 
-        File[] filesList = file.listFiles();
+        File[] filesList = inputFile.listFiles();
         if (filesList == null) {
             throw new IllegalArgumentException("");
         }
