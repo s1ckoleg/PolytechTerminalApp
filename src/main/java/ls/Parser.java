@@ -29,7 +29,7 @@ public class Parser {
     private boolean fileOutput;
 
     @Argument
-    private List<File> fileArguments = new ArrayList<>();
+    public List<File> fileArguments = new ArrayList<>();
 
     private File inputFile;
     private File outputFile;
