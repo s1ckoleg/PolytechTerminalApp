@@ -1,4 +1,4 @@
-package ls;
+package ls.fileparameters;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
-public class LongOutput {
+public class Long {
 
     public String getLastModifiedTime(File file) throws IOException {
         Path path = Paths.get(file.toString());
@@ -19,11 +19,11 @@ public class LongOutput {
     }
 
     public String getFileSizeBytes(File file) {
-        return Long.toString(file.length());
+        return java.lang.Long.toString(file.length());
     }
 
     @NotNull
-    public List<String> getLongParametres(File file) throws IOException {
+    public List<String> getLongParameters(File file) throws IOException {
         List<String> parametres = new ArrayList<>();
 
         parametres.add(new Permissions().getPermissionsBitmask(file));

@@ -1,4 +1,4 @@
-package ls;
+package ls.fileparameters;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,36 +13,40 @@ import java.util.Set;
 
 public class Permissions {
 
-    public Set<PosixFilePermission> getPermissionsSet(File file) throws IOException {
+    static private Set<PosixFilePermission> permissionsSet(File file) throws IOException {
         Path path = Paths.get(file.toString());
         PosixFileAttributeView posixView = Files.getFileAttributeView(path, PosixFileAttributeView.class);
-        PosixFileAttributes attribs = posixView.readAttributes(); // get file attributes
+        PosixFileAttributes attribs = posixView.readAttributes();
         return attribs.permissions();
     }
 
     public String getPermissionsBitmask(File file) throws IOException {
-        Set<PosixFilePermission> permissionsSet = getPermissionsSet(file);
+        Set<PosixFilePermission> permissionsSet = permissionsSet(file);
         return PosixFilePermissions.toString(permissionsSet);
     }
 
     public String getPermissionsRWX(File file) throws IOException {
-        Set<PosixFilePermission> permissionsSet = getPermissionsSet(file);
+        Set<PosixFilePermission> permissionsSet = permissionsSet(file);
         StringBuilder string = new StringBuilder();
 
         if (permissionsSet.contains(PosixFilePermission.OWNER_READ)) {
             string.append("r");
-        }
-        if (permissionsSet.contains(PosixFilePermission.OWNER_WRITE)) {
-            string.append("w");
-        }
-        if (permissionsSet.contains(PosixFilePermission.OWNER_EXECUTE)) {
-            string.append("x");
+        } else {
+            string.append("-");
         }
 
-        if (string.isEmpty()) {
-            return "-";
+        if (permissionsSet.contains(PosixFilePermission.OWNER_WRITE)) {
+            string.append("w");
         } else {
-            return string.toString();
+            string.append("-");
         }
+
+        if (permissionsSet.contains(PosixFilePermission.OWNER_EXECUTE)) {
+            string.append("x");
+        } else {
+            string.append("-");
+        }
+
+        return string.toString();
     }
 }

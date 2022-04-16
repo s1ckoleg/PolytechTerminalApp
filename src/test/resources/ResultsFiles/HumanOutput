@@ -1,0 +1,6 @@
+rwx 64 bytes Dir1 
+rwx 64 bytes Dir2 
+rwx 64 bytes Dir3 
+rw- 0 bytes textfile1.txt 
+rw- 0 bytes textfile2.txt 
+rw- 43 bytes textfile3.txt 

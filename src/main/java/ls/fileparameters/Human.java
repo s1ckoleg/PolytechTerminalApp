@@ -1,4 +1,4 @@
-package ls;
+package ls.fileparameters;
 
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
@@ -8,26 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HumanOutput {
-
-    private String getPermissionsRWX(File file) {
-        StringBuilder permissions = new StringBuilder();
-        if (file.canRead()) {
-            permissions.append("r");
-        }
-        if (file.canWrite()) {
-            permissions.append("w");
-        }
-        if (file.canExecute()) {
-            permissions.append("x");
-        }
-
-        if (permissions.isEmpty()) {
-            return "-";
-        } else {
-            return permissions.toString();
-        }
-     }
+public class Human {
 
     private String getHumanReadableSize(File file) {
         long byteLength = file.length();
@@ -35,7 +16,7 @@ public class HumanOutput {
     }
 
     @NotNull
-    public List<String> getHumanParametres(File file) throws IOException {
+    public List<String> getHumanParameters(File file) throws IOException {
         List<String> parametres = new ArrayList<>();
         parametres.add(new Permissions().getPermissionsRWX(file));
         parametres.add(getHumanReadableSize(file));
