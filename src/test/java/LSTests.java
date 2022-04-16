@@ -194,6 +194,14 @@ public class LSTests {
     }
 
     @Test
+    public void emptyDir() throws IOException {
+        String argument = "/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/src/test/resources/EmptyDir";
+        String stringToCompare = "";
+        assertEquals(stringToCompare,
+                getOutput(argument));
+    }
+
+    @Test
     public void errors() {
         assertThrows(IllegalArgumentException.class, () -> Main.main(("-l -h " + PATH_TO_TESTDIR).split(" ")));
         assertThrows(IllegalArgumentException.class, () -> Main.main(("-l -o " + PATH_TO_TESTDIR).split(" ")));
