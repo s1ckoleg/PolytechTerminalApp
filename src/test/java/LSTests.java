@@ -76,7 +76,7 @@ public class LSTests {
         Main.main(
                 ("-o " + path1.toString() +
                         " " + PATH_TO_TESTDIR).split(" "));
-        Path path2 = Path.of("/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/src/test/resources/ResultsFiles/simpleOutput");
+        Path path2 = Path.of("/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/src/test/resources/ResultsFiles/SimpleOutput");
         Assertions.assertTrue(compareContent(path1, path2));
     }
 

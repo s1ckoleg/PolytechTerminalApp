@@ -8,16 +8,17 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Parser instance = new Parser();
-        instance.parse(args);
+        Parser parser = new Parser();
+        parser.parse(args);
 
-        Map<String, Boolean> arguments = instance.getMapOfArguments();
-        Map<String, File> files = instance.getMapOfFiles();
+        Map<String, Boolean> arguments = parser.getMapOfArguments();
+        Map<String, File> files = parser.getMapOfFiles();
 
-        Map<String, List<String>> results =
-                new MapOfParameters(arguments.get("reverseOutput"), arguments.get("longOutput"),
-                        arguments.get("humanOutput"), files.get("inputFile")).getMap();
+        MapOfParameters mapOfParameters = new MapOfParameters(arguments.get("reverseOutput"), arguments.get("longOutput"),
+                arguments.get("humanOutput"), files.get("inputFile"));
+        Map<String, List<String>> results = mapOfParameters.getMap();
 
-        new Output(arguments.get("fileOutput"), files.get("outputFile"), results).buildOutput();
+        Output output = new Output(arguments.get("fileOutput"), files.get("outputFile"), results);
+        output.buildOutput();
     }
 }

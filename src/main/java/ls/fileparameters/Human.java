@@ -18,7 +18,7 @@ public class Human {
     @NotNull
     public List<String> getHumanParameters(File file) throws IOException {
         List<String> parametres = new ArrayList<>();
-        parametres.add(new Permissions().getPermissionsRWX(file));
+        parametres.add(Permissions.getPermissionsRWX(file));
         parametres.add(getHumanReadableSize(file));
         parametres.add(file.getName());
         return parametres;

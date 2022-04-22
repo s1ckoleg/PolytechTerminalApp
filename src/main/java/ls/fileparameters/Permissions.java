@@ -13,19 +13,19 @@ import java.util.Set;
 
 public class Permissions {
 
-    static private Set<PosixFilePermission> permissionsSet(File file) throws IOException {
+    private static Set<PosixFilePermission> permissionsSet(File file) throws IOException {
         Path path = Paths.get(file.toString());
         PosixFileAttributeView posixView = Files.getFileAttributeView(path, PosixFileAttributeView.class);
         PosixFileAttributes attribs = posixView.readAttributes();
         return attribs.permissions();
     }
 
-    public String getPermissionsBitmask(File file) throws IOException {
+    public static String getPermissionsBitmask(File file) throws IOException {
         Set<PosixFilePermission> permissionsSet = permissionsSet(file);
         return PosixFilePermissions.toString(permissionsSet);
     }
 
-    public String getPermissionsRWX(File file) throws IOException {
+    public static String getPermissionsRWX(File file) throws IOException {
         Set<PosixFilePermission> permissionsSet = permissionsSet(file);
         StringBuilder string = new StringBuilder();
 
