@@ -20,9 +20,33 @@ public class Permissions {
         return attribs.permissions();
     }
 
-    public static String getPermissionsBitmask(File file) throws IOException {
+
+    private static String countPermissionBitmask(PosixFilePermission read, PosixFilePermission write, PosixFilePermission execute, File file) throws IOException {
+        // r == 4
+        // w == 2
+        // x == 1
+        int bitmask = 0;
         Set<PosixFilePermission> permissionsSet = permissionsSet(file);
-        return PosixFilePermissions.toString(permissionsSet);
+
+        if (permissionsSet.contains(read)) {
+            bitmask += 4;
+        }
+
+        if (permissionsSet.contains(write)) {
+            bitmask += 2;
+        }
+
+        if (permissionsSet.contains(execute)) {
+            bitmask += 1;
+        }
+
+        return Integer.toString(bitmask);
+    }
+
+    public static String getPermissionsBitmask(File file) throws IOException {
+        return countPermissionBitmask(PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE, PosixFilePermission.OWNER_EXECUTE, file) +
+                countPermissionBitmask(PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE, PosixFilePermission.GROUP_EXECUTE, file) +
+                countPermissionBitmask(PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE, PosixFilePermission.OTHERS_EXECUTE, file);
     }
 
     public static String getPermissionsRWX(File file) throws IOException {

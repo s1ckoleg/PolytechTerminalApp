@@ -101,12 +101,12 @@ public class LSTests {
     public void longTest() throws IOException {
         String argument = "-l " + PATH_TO_TESTDIR;
         String stringToCompare = """
-                rwxr-xr-x 2022-04-09T16:55:50.636828929Z 64 Dir1\s
-                rwxr-xr-x 2022-04-09T16:55:52.886645145Z 64 Dir2\s
-                rwxr-xr-x 2022-04-09T16:55:56.647419967Z 64 Dir3\s
-                rw-r--r-- 2022-04-09T16:56:04.337665024Z 0 textfile1.txt\s
-                rw-r--r-- 2022-04-09T16:56:11.851892291Z 0 textfile2.txt\s
-                rw-r--r-- 2022-04-09T16:56:30.697382495Z 43 textfile3.txt\s
+                755 2022-04-09T16:55:50.636828929Z 64 Dir1\s
+                755 2022-04-09T16:55:52.886645145Z 64 Dir2\s
+                755 2022-04-09T16:55:56.647419967Z 64 Dir3\s
+                644 2022-04-09T16:56:04.337665024Z 0 textfile1.txt\s
+                644 2022-04-09T16:56:11.851892291Z 0 textfile2.txt\s
+                644 2022-04-09T16:56:30.697382495Z 43 textfile3.txt\s
                 """;
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -116,12 +116,12 @@ public class LSTests {
     public void longReversedTest() throws IOException {
         String argument = "-l -r " + PATH_TO_TESTDIR;
         String stringToCompare = """
-                rw-r--r-- 2022-04-09T16:56:30.697382495Z 43 textfile3.txt\s
-                rw-r--r-- 2022-04-09T16:56:11.851892291Z 0 textfile2.txt\s
-                rw-r--r-- 2022-04-09T16:56:04.337665024Z 0 textfile1.txt\s
-                rwxr-xr-x 2022-04-09T16:55:56.647419967Z 64 Dir3\s
-                rwxr-xr-x 2022-04-09T16:55:52.886645145Z 64 Dir2\s
-                rwxr-xr-x 2022-04-09T16:55:50.636828929Z 64 Dir1\s
+                644 2022-04-09T16:56:30.697382495Z 43 textfile3.txt\s
+                644 2022-04-09T16:56:11.851892291Z 0 textfile2.txt\s
+                644 2022-04-09T16:56:04.337665024Z 0 textfile1.txt\s
+                755 2022-04-09T16:55:56.647419967Z 64 Dir3\s
+                755 2022-04-09T16:55:52.886645145Z 64 Dir2\s
+                755 2022-04-09T16:55:50.636828929Z 64 Dir1\s
                 """;
         assertEquals(stringToCompare,
                 getOutput(argument));
@@ -130,7 +130,7 @@ public class LSTests {
     @Test
     public void longOneFileTest() throws IOException {
         String argument = "-l " + PATH_TO_TESTDIR + "/textfile3.txt";
-        String stringToCompare = "rw-r--r-- 2022-04-09T16:56:30.697382495Z 43 textfile3.txt \n";
+        String stringToCompare = "644 2022-04-09T16:56:30.697382495Z 43 textfile3.txt \n";
         assertEquals(stringToCompare,
                 getOutput(argument));
     }
@@ -204,7 +204,6 @@ public class LSTests {
     @Test
     public void errors() {
         assertThrows(IllegalArgumentException.class, () -> Main.main(("-l -h " + PATH_TO_TESTDIR).split(" ")));
-        assertThrows(IllegalArgumentException.class, () -> Main.main(("-l -o " + PATH_TO_TESTDIR).split(" ")));
         assertThrows(NoSuchFileException.class, () -> Main.main("-l not/existing/directory".split(" ")));
     }
 }

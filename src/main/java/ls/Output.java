@@ -10,19 +10,17 @@ import java.util.Map;
 import static ls.Errors.FILE_WRITING_ERROR;
 
 public class Output {
-    private final boolean fileOutput;
     private final File outputFile;
     private final Map<String, List<String>> results;
 
-    public Output(boolean fileOutput, File outputFile, Map<String, List<String>> results) {
-        this.fileOutput = fileOutput;
+    public Output(File outputFile, Map<String, List<String>> results) {
         this.outputFile = outputFile;
         this.results = results;
     }
 
 
     public void buildOutput() throws IOException {
-        if (fileOutput) {
+        if (outputFile != null) {
             textFileOutput();
         } else {
             consoleOutput();

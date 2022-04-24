@@ -1,8 +1,8 @@
 package ls;
 
 import ls.fileparameters.FilesList;
-import ls.fileparameters.Human;
-import ls.fileparameters.Long;
+import ls.fileparameters.HumanParameters;
+import ls.fileparameters.LongParameters;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class MapOfParameters {
     }
 
     public Map<String, List<String>> getMap() throws IOException {
-        File[] filesArray = new FilesList(inputFile).getFilesList();
+        File[] filesArray = FilesList.getFilesList(inputFile);
         Map<String, List<String>> results = new LinkedHashMap<>();
 
         if (reverseOutput) {
@@ -38,9 +38,9 @@ public class MapOfParameters {
 
     private List<String> getParameters(File file) throws IOException {
         if (longOutput) {
-            return new Long().getLongParameters(file);
+            return LongParameters.getLongParameters(file);
         } else if (humanOutput) {
-            return new Human().getHumanParameters(file);
+            return HumanParameters.getHumanParameters(file);
         } else {
             List<String> parametres = new ArrayList<>();
             parametres.add(file.getName());

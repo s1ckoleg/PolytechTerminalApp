@@ -8,15 +8,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human {
+public class HumanParameters {
 
-    private String getHumanReadableSize(File file) {
+    private static String getHumanReadableSize(File file) {
         long byteLength = file.length();
         return FileUtils.byteCountToDisplaySize(byteLength);
     }
 
     @NotNull
-    public List<String> getHumanParameters(File file) throws IOException {
+    public static List<String> getHumanParameters(File file) throws IOException {
         List<String> parametres = new ArrayList<>();
         parametres.add(Permissions.getPermissionsRWX(file));
         parametres.add(getHumanReadableSize(file));

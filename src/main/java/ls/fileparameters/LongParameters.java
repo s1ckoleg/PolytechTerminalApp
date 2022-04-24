@@ -10,20 +10,20 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
-public class Long {
+public class LongParameters {
 
-    private String getLastModifiedTime(File file) throws IOException {
+    private static String getLastModifiedTime(File file) throws IOException {
         Path path = Paths.get(file.toString());
         BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
         return attr.lastModifiedTime().toString();
     }
 
-    private String getFileSizeBytes(File file) {
+    private static String getFileSizeBytes(File file) {
         return java.lang.Long.toString(file.length());
     }
 
     @NotNull
-    public List<String> getLongParameters(File file) throws IOException {
+    public static List<String> getLongParameters(File file) throws IOException {
         List<String> parametres = new ArrayList<>();
 
         parametres.add(Permissions.getPermissionsBitmask(file));

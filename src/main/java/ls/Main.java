@@ -11,14 +11,11 @@ public class Main {
         Parser parser = new Parser();
         parser.parse(args);
 
-        Map<String, Boolean> arguments = parser.getMapOfArguments();
-        Map<String, File> files = parser.getMapOfFiles();
-
-        MapOfParameters mapOfParameters = new MapOfParameters(arguments.get("reverseOutput"), arguments.get("longOutput"),
-                arguments.get("humanOutput"), files.get("inputFile"));
+        MapOfParameters mapOfParameters = new MapOfParameters(parser.isReverseOutput(), parser.isLongOutput(),
+                parser.isHumanOutput(), parser.getInputFile());
         Map<String, List<String>> results = mapOfParameters.getMap();
 
-        Output output = new Output(arguments.get("fileOutput"), files.get("outputFile"), results);
+        Output output = new Output(parser.getOutputFile(), results);
         output.buildOutput();
     }
 }
