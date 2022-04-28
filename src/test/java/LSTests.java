@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class LSTests {
 
     private static final String PATH_TO_TESTDIR =
-            "/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/src/test/resources/TestDir";
+            "src/test/resources/TestDir";
 
     public String getOutput(String argument) throws IOException {
         final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -65,7 +65,7 @@ public class LSTests {
     @Test
     public void simpleOutputOneFileTest() throws IOException {
         String argument = PATH_TO_TESTDIR + "/textfile2.txt";
-        String stringToCompare = "textfile2.txt \n";
+        String stringToCompare = "textfile2.txt " + System.lineSeparator();
         assertEquals(stringToCompare,
                 getOutput(argument));
     }
@@ -76,7 +76,7 @@ public class LSTests {
         Main.main(
                 ("-o " + path1.toString() +
                         " " + PATH_TO_TESTDIR).split(" "));
-        Path path2 = Path.of("/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/src/test/resources/ResultsFiles/SimpleOutput");
+        Path path2 = Path.of("src/test/resources/ResultsFiles/SimpleOutput");
         Assertions.assertTrue(compareContent(path1, path2));
     }
 
@@ -85,12 +85,13 @@ public class LSTests {
         String argument = " ";
         String stringToCompare = """
                 .git\s
-                .gitignore\s
                 .idea\s
                 out\s
-                pom.xml\s
                 src\s
                 target\s
+                .DS_Store\s
+                .gitignore\s
+                pom.xml\s
                 testfile.txt\s
                 """;
         assertEquals(stringToCompare,
@@ -130,7 +131,7 @@ public class LSTests {
     @Test
     public void longOneFileTest() throws IOException {
         String argument = "-l " + PATH_TO_TESTDIR + "/textfile3.txt";
-        String stringToCompare = "644 2022-04-09T16:56:30.697382495Z 43 textfile3.txt \n";
+        String stringToCompare = "644 2022-04-09T16:56:30.697382495Z 43 textfile3.txt " + System.lineSeparator();
         assertEquals(stringToCompare,
                 getOutput(argument));
     }
@@ -141,7 +142,7 @@ public class LSTests {
         Main.main(
                 ("-l -o " + path1.toString() +
                         " " + PATH_TO_TESTDIR).split(" "));
-        Path path2 = Path.of("/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/src/test/resources/ResultsFiles/LongOutput");
+        Path path2 = Path.of("src/test/resources/ResultsFiles/LongOutput");
         Assertions.assertTrue(compareContent(path1, path2));
     }
 
@@ -178,7 +179,7 @@ public class LSTests {
     @Test
     public void humanOneFileTest() throws IOException {
         String argument = "-h " + PATH_TO_TESTDIR + "/textfile2.txt";
-        String stringToCompare = "rw- 0 bytes textfile2.txt \n";
+        String stringToCompare = "rw- 0 bytes textfile2.txt " + System.lineSeparator();
         assertEquals(stringToCompare,
                 getOutput(argument));
     }
@@ -189,13 +190,13 @@ public class LSTests {
         Main.main(
                 ("-h -o " + path1.toString() +
                         " " + PATH_TO_TESTDIR).split(" "));
-        Path path2 = Path.of("/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/src/test/resources/ResultsFiles/HumanOutput");
+        Path path2 = Path.of("src/test/resources/ResultsFiles/HumanOutput");
         Assertions.assertTrue(compareContent(path1, path2));
     }
 
     @Test
     public void emptyDir() throws IOException {
-        String argument = "/Users/olegkalasnikov/IdeaProjects/PolytechTerminalApp/src/test/resources/EmptyDir";
+        String argument = "src/test/resources/EmptyDir";
         String stringToCompare = "";
         assertEquals(stringToCompare,
                 getOutput(argument));
